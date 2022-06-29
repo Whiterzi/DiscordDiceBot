@@ -6,7 +6,7 @@ const event = require('events')
 const em = new event.EventEmitter()
 
 
-client.login(auth.key)
+// client.login(auth.key)
 let botid;
 let playerdata = {};
 client.on('ready', () => {
@@ -32,11 +32,11 @@ function betconverter(bet) {
     }
     let pointer = 0;
     while (pointer < bet.length) {
-        if (Number.isInteger(parseInt(bet[pointer]))) {
+        if (Number.isInteger(parseInt(bet[pointer])) || bet[pointer] === '.') {
             pointer++
         } else {
             if (bet[pointer] in quantifier) {
-                return parseInt(bet.substring(0, pointer)) * quantifier[bet[pointer]];
+                return parseFloat(bet.substring(0, pointer)) * quantifier[bet[pointer]];
             } else {
                 return false
             }
@@ -51,10 +51,8 @@ function diceTossed() {
     while (pointer < numberRate.length) {
         base -= numberRate[pointer]
         if (base <= 0) {
-            if (history.length >= 15) {
-                for (i = 0; i < 15; i++) {
-                    if (history[i + 1] != null) history[i] = history[i + 1]
-                }
+            if (history.length = 15) {
+                history.shift()
             }
             history.push(pointer + 1)
             return pointer + 1
@@ -237,7 +235,7 @@ client.on('messageCreate', msg => {
                         case 'si':
                             isUserValid(msg.author.toString()) &&
                                 userSignIn(msg.author.toString()) ?
-                                msg.reply(`恭喜您簽到成功，獲得遊戲幣${numberComma(10000000)}元`) :
+                                msg.reply(`恭喜您簽到成功，獲得遊戲幣${numberComma(100000000)}元`) :
                                 msg.reply('今天已簽到過，請明天再來')
                             break;
                         case 'h':
@@ -259,7 +257,6 @@ client.on('messageCreate', msg => {
 
 
 })
-
 
 
 
