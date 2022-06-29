@@ -121,10 +121,12 @@ function userSignIn(id) {
 }
 
 function checkbalance(id, mount) {
-    if (playerdata[id].balance >= mount) {
-        return true
-    } else {
-        return false
+    if (isUserValid(id)) {
+        if (playerdata[id].balance >= mount) {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
