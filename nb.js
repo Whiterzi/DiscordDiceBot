@@ -18,7 +18,7 @@ client.on('ready', () => {
 const playInitialState = (id) => (
     {
         id: id,
-        balance: 20000000,
+        balance: 200000000,
         lastsign: -1,
     }
 )
@@ -111,7 +111,7 @@ function readDataBase() {
 function userSignIn(id) {
     let date = new Date(Date.now())
     if (playerdata[id].lastsign < date.getDate()) {
-        playerdata[id].balance += 10000000
+        playerdata[id].balance += 100000000
         playerdata[id].lastsign = date.getDate()
         updateDataBase()
         return true
@@ -220,7 +220,7 @@ client.on('messageCreate', msg => {
                     if (checkbalance(msg.author.toString(), bet)) {
                         if (nowablebet) {
                             if (bet != false) {
-                                onBet(msg.author.toString(), command[1], bet) && msg.reply(`下注成功！${command[1]}，${numberComma(bet)}`)
+                                onBet(msg.author.toString(), command[1], bet) && msg.reply(`下注成功！${command[1]}，${numberComma(bet)},餘額：${numberComma(playerdata[msg.author.toString()].balance)}`)
                             } else {
                                 msg.reply('錯誤的指令，請重新下注')
                             }
