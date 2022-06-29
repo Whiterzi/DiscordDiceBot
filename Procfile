@@ -1,2 +1,2 @@
-web: node nb.js
+worker: node nb.js
 
