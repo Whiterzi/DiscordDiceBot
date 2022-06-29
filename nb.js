@@ -6,7 +6,7 @@ const event = require('events')
 const em = new event.EventEmitter()
 
 
-// client.login(auth.key)
+client.login(auth.key)
 let botid;
 let playerdata = {};
 client.on('ready', () => {
