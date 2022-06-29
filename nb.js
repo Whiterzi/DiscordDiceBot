@@ -244,7 +244,9 @@ client.on('messageCreate', msg => {
                             msg.channel.send(`歷史開獎紀錄：${history.join(" ")}`)
                             break;
                         case 'q':
-                            msg.reply(`${numberComma(playerdata[msg.author.toString()].balance)}`)
+                            if(isUserValid(msg.author.toString())){
+                                msg.reply(`${numberComma(playerdata[msg.author.toString()].balance)}`)
+                            }
                             break;
                         default:
                             msg.reply('錯誤的指令')
