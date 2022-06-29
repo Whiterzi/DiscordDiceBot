@@ -51,6 +51,11 @@ function diceTossed() {
     while (pointer < numberRate.length) {
         base -= numberRate[pointer]
         if (base <= 0) {
+            if (history.length >= 15) {
+                for (i = 0; i < 15; i++) {
+                    if (history[i + 1] != null) history[i] = history[i + 1]
+                }
+            }
             history.push(pointer + 1)
             return pointer + 1
         } else {
