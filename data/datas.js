@@ -12,7 +12,7 @@ const Constant = {
         bet: bet,
         amount: amount
     }),
-    numberRate: [0,0,0,0,100,0],
+    numberRate: [17, 17, 17, 17, 17, 15],
     signReward: '1e',
 }
 // [17, 17, 17, 17, 17, 15]
