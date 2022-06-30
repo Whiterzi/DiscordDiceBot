@@ -24,12 +24,12 @@ client.on('ready', () => {
 })
 // --------------------------------------------------------------------------------------------------------------------------------
 function MainThread(msg) {
-    if(msg.content==='!help'){
+    if (msg.content === '!help') {
         return viewhelp()
     }
     const command = tools.commandParser(msg.content, botid)
     if (command != null) {
-        return game.commandSwitch(command, msg.author.id, client ,msg.channelId )
+        return game.commandSwitch(command, msg.author.id, client, msg.channelId)
     }
 }
 
@@ -41,10 +41,11 @@ function viewhelp() {
         "下注 1~6 / 大小單雙 | 賠率 [1~5]：5.2 倍 [6]：6 倍 [小,單]：1.8 倍 [大,雙]：2 倍 \n" +
         "使用方式 \n" +
         "@骰子機器人 [下注] [金額]\n" +
-        "notifyu - 開獎時寄送通知訊息給自己 | !notifyu - 關閉開獎訊息\n"+
-        "notifyc - (於伺服器頻道內使用)開獎時寄送通知至該頻道 | !notifyc - 關閉開獎通知\n"+
-        "\n\nMade by Whiter_"+
-    "```"
+        "notifyu - 開獎時寄送通知訊息給自己 | !notifyu - 關閉開獎訊息\n" +
+        "notifyc - (於伺服器頻道內使用)開獎時寄送通知至該頻道 | !notifyc - 關閉開獎通知\n" +
+        "[邀請連結] (https://discord.com/api/oauth2/authorize?client_id=991158579321122888&permissions=68608&scope=bot)" +
+        "\n\nMade by Whiter_" +
+        "```"
     return helplist
 }
 
