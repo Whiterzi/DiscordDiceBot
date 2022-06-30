@@ -43,9 +43,9 @@ function viewhelp() {
         "@骰子機器人 [下注] [金額]\n" +
         "notifyu - 開獎時寄送通知訊息給自己 | !notifyu - 關閉開獎訊息\n" +
         "notifyc - (於伺服器頻道內使用)開獎時寄送通知至該頻道 | !notifyc - 關閉開獎通知\n" +
-        "[邀請連結] (https://discord.com/api/oauth2/authorize?client_id=991158579321122888&permissions=68608&scope=bot)" +
         "\n\nMade by Whiter_" +
-        "```"
+        "```"+
+        "邀請連結https://discord.com/api/oauth2/authorize?client_id=991158579321122888&permissions=68608&scope=bot"
     return helplist
 }
 
