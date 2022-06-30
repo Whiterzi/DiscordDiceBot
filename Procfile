@@ -1,2 +1,2 @@
-worker: node nb.js
+worker: node ./core/NBcoreV2.js
 

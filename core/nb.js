@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
-const auth = require('./auth.json');
+const auth = require('../auth.json');
 const fs = require('fs')
 const event = require('events')
 const em = new event.EventEmitter()
@@ -15,125 +15,20 @@ client.on('ready', () => {
 })
 
 
-const playInitialState = (id) => (
-    {
-        id: id,
-        balance: 200000000,
-        lastsign: -1,
-    }
-)
 // functions
-let betstack = []
-let history = []
-function betconverter(bet) {
-    const quantifier = {
-        "w": 10000,
-        "e": 100000000
-    }
-    let pointer = 0;
-    while (pointer < bet.length) {
-        if (Number.isInteger(parseInt(bet[pointer])) || bet[pointer] === '.') {
-            pointer++
-        } else {
-            if (bet[pointer] in quantifier) {
-                return parseFloat(bet.substring(0, pointer)) * quantifier[bet[pointer]];
-            } else {
-                return false
-            }
-        }
-    }
-    return parseInt(bet)
-}
-const numberRate = [17, 17, 17, 17, 17, 15]
-function diceTossed() {
-    let base = Math.floor(Math.random() * 100 + 1)
-    let pointer = 0;
-    while (pointer < numberRate.length) {
-        base -= numberRate[pointer]
-        if (base <= 0) {
-            if (history.length = 15) {
-                history.shift()
-            }
-            history.push(pointer + 1)
-            return pointer + 1
-        } else {
-            pointer++
-        }
-    }
-}
-function numberComma(num) {
-    let comma = /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g
-    return num.toString().replace(comma, ',')
-}
 
-function onBet(id, bet, mount) {
-    if (betstack.length === 0) {
-        em.emit('set-dice-roll', 'roll')
-    }
-    playerdata[id].balance -= mount
-    updateDataBase()
-    betstack.push({
-        id: id,
-        bet: bet,
-        mount: mount
-    })
-    return true
-}
 
-function isUserValid(id) {
-    if (id in playerdata) {
-        return true
-    } else {
-        playerdata[id] = playInitialState(id)
-        updateDataBase()
-        return true
-    }
-}
-function updateDataBase() {
-    const inputdata = JSON.stringify(playerdata)
-    fs.writeFile('./playerdata.json', inputdata, (err) => {
-        if (err) throw err
-    })
-}
-function readDataBase() {
-    return new Promise((resolve, reject) => {
-        fs.readFile('./playerdata.json', 'utf-8', (err, data) => {
-            if (err) {
-                console.log(err)
-                reject(err)
-                throw err;
-            }
-            playerdata = JSON.parse(data.toString());
-            resolve(playerdata)
-        });
-    })
-}
-function userSignIn(id) {
-    let date = new Date(Date.now())
-    if (playerdata[id].lastsign < date.getDate()) {
-        playerdata[id].balance += 100000000
-        playerdata[id].lastsign = date.getDate()
-        updateDataBase()
-        return true
-    } else {
-        return false
-    }
-}
 
-function checkbalance(id, mount) {
-    if (isUserValid(id)) {
-        if (playerdata[id].balance >= mount) {
-            return true
-        } else {
-            return false
-        }
-    }
-}
 
-function whenWinning(id, mount) {
-    playerdata[id].balance += mount
-    return true
-}
+
+
+
+
+
+
+
+
+
 
 // event listener
 let channel;
@@ -222,7 +117,7 @@ client.on('messageCreate', msg => {
                     if (checkbalance(msg.author.toString(), bet)) {
                         if (nowablebet) {
                             if (bet != false) {
-                                onBet(msg.author.toString(), command[1], bet) && msg.reply(`下注成功！${command[1]}，${numberComma(bet)},餘額：${numberComma(playerdata[msg.author.toString()].balance)}`)
+                                onBet(msg.author.toString(), command[1], bet) && msg.reply(`下注成功！${command[1]}，${numberComma(bet)}`)
                             } else {
                                 msg.reply('錯誤的指令，請重新下注')
                             }
@@ -237,16 +132,14 @@ client.on('messageCreate', msg => {
                         case 'si':
                             isUserValid(msg.author.toString()) &&
                                 userSignIn(msg.author.toString()) ?
-                                msg.reply(`恭喜您簽到成功，獲得遊戲幣${numberComma(100000000)}元`) :
+                                msg.reply(`恭喜您簽到成功，獲得遊戲幣${numberComma(10000000)}元`) :
                                 msg.reply('今天已簽到過，請明天再來')
                             break;
                         case 'h':
                             msg.channel.send(`歷史開獎紀錄：${history.join(" ")}`)
                             break;
                         case 'q':
-                            if(isUserValid(msg.author.toString())){
-                                msg.reply(`${numberComma(playerdata[msg.author.toString()].balance)}`)
-                            }
+                            msg.reply(`${numberComma(playerdata[msg.author.toString()].balance)}`)
                             break;
                         default:
                             msg.reply('錯誤的指令')
@@ -261,6 +154,7 @@ client.on('messageCreate', msg => {
 
 
 })
+
 
 
 
