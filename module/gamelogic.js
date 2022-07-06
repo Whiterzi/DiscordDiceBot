@@ -80,7 +80,7 @@ function BetResult(result) {
                 }
                 break;
             case '6':
-                if (v.bet === 6) {
+                if (v.bet === '6') {
                     return betWinning(v.id, v.bet, v.amount, 6)
                 }
                 break;
